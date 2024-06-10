@@ -69,7 +69,7 @@ function split() {
   fs.copyFileSync('specs.unsplit.json', 'specs.json');
 
   // Load the original specs.json file before changes
-  const specs = require('./specs.json');
+  const specs = require('specs.json');
 
 
   // Array that holds markdown filenames in the desired order
@@ -154,7 +154,7 @@ function split() {
 
   // make string from specs for writing to file
   const specsString = JSON.stringify(specs);
-  fs.writeFileSync("./specs.json", specsString);
+  fs.writeFileSync("specs.json", specsString);
 
 }
 
