@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "split-spec": "spec-up-split"
+        "split-spec": "spec-up-split",
+        "postinstall": "node -e \"console.log('Thank you for installing spec-up-splitter. To use this tool, run: npx spec-up-splitter')\""
     },
     "bin": {
         "spec-up-splitter": "./index.js"
