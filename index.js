@@ -1,7 +1,6 @@
 /**
  * @file This file:
- * This file 
-    - splits terms and definitions into separate files based on the term.
+ *  - splits terms and definitions into separate files based on the term.
     - This is done by creating a file for each term.
     - The file name is based on the term. The content of the file is one term plus the definition of the term.
     - The file path is added to the specs.json file so it is included in the index.html after render.
