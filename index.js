@@ -69,8 +69,7 @@ function split() {
   fs.copyFileSync('specs.unsplit.json', 'specs.json');
 
   // Load the original specs.json file before changes
-  const specs = require('specs.json');
-
+  const specs = require(path.join(process.cwd(), 'specs.json'));
 
   // Array that holds markdown filenames in the desired order
   const arrMarkdownFileNamesAndFileOrder = specs.specs[0].markdown_paths;
