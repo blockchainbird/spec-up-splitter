@@ -8,7 +8,7 @@
         "split-spec": "spec-up-split"
     },
     "bin": {
-        "spec-up-split": "./script.js"
+        "spec-up-split": "./index.js"
     },
     "repository": {
         "type": "git",
