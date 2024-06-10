@@ -1,20 +1,16 @@
+#!/usr/bin/env node
+
 /**
  * @file This file processes the glossary file, ensuring that there is a blank line after each definition and adding a '~' prefix to any lines that do not start with '[[def:' and are not empty.
  * @author Kor Dwarshuis
  * @version 1.0.0
- * @since 2024-06-09
+ * @since 2024-06-10
  */
 
 const fs = require('fs');
-const path = require('path');
 
 module.exports = {
   fixGlossaryFile: function (glossaryFileToBeFixed) {
-
-    /* CONFIG */
-    // const glossaryFileToBeFixed = './spec/terms_and_definitions.md';
-    /* END CONFIG */
-
     let glossaryFileContent = fs.readFileSync(glossaryFileToBeFixed, 'utf8');
 
     let lines = glossaryFileContent.split('\n');
