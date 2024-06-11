@@ -21,8 +21,8 @@ const fixContent = require('./fix-content.js');
 
 // Retrieve command line arguments or set default values
 const args = process.argv.slice(2);
-const pathToTermsFileToBeSplit = args[0] || './spec/terms_and_definitions.md'; // Default glossary file path
-const pathToTermFilesDir = args[1] || './spec/terms-definitions'; // Default output file path
+const pathToTermsFileToBeSplit = args[0] || 'terms_and_definitions.md'; // Default glossary file path
+const pathToTermFilesDir = args[1] || 'terms-definitions'; // Default output file path
 
 /* CONFIG */
 const config = {
