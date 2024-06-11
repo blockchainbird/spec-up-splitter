@@ -136,7 +136,7 @@ function split() {
     let filename = '';
     if (terms[index]) {
       filename = `${fileNames[index]}.md`;
-      console.log('filename: ', filename);
+      console.log(filename, ` created`);
 
       // Write separate files to disk
       fs.writeFileSync(
