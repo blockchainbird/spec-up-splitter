@@ -157,4 +157,17 @@ function split() {
 
 }
 
-testing(pathToTermsFileToBeSplit, pathToTermFilesDir, split);
+// If case of help command, show help text and exit…
+if (args[0] === "help" || args[0] === "-h" || args[0] === "-help" || args[0] === "--help") {
+  fs.readFile('help.txt', 'utf8', (err, helptext) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(helptext);
+  });
+
+  // …else run main function
+} else {
+  testing(pathToTermsFileToBeSplit, pathToTermFilesDir, split);
+}
