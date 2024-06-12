@@ -159,7 +159,8 @@ function split() {
 
 // If case of help command, show help text and exit…
 if (args[0] === "help" || args[0] === "-h" || args[0] === "-help" || args[0] === "--help") {
-  fs.readFile('help.txt', 'utf8', (err, helptext) => {
+  const helpFilePath = path.join(__dirname, 'help.txt');
+  fs.readFile(helpFilePath, 'utf8', (err, helptext) => {
     if (err) {
       console.error(err);
       return;
