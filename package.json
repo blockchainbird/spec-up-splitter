@@ -6,7 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "split-spec": "spec-up-split",
-        "postinstall": "node -e \"console.log('Thank you for installing spec-up-splitter.\n\nTo use this tool, run: \"npx spec-up-splitter\"\n\nFor help run: \"npx spec-up-splitter help\"')\""
+        "postinstall": "node -e \"console.log('Thank you for installing spec-up-splitter.\\n\\nTo use this tool, run: \\\"npx spec-up-splitter\\\"\\n\\nFor help run: \\\"npx spec-up-splitter help\\\"')\""
     },
     "bin": {
         "spec-up-splitter": "./index.js"
