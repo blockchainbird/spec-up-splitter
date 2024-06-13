@@ -19,6 +19,17 @@ const fs = require('fs');
 const path = require('path');
 const fixContent = require('./fix-content.js');
 
+// Get the current working directory
+const projectRoot = process.cwd();
+
+// Use require to load JSON data
+const specs = require(path.join(projectRoot, 'specs.json'));
+const specDirectory = specs.specs[0].spec_directory;
+
+// remove “./” or “/” at the beginning from specDirectory
+const specDirectoryWithoutBeginningSlash = specDirectory.replace(/^\.\/|\/$/g, '');
+const specPathPrefix = specDirectoryWithoutBeginningSlash + '/';
+
 // Retrieve command line arguments or set default values
 const args = process.argv.slice(2);
 const pathToTermsFileToBeSplit = args[0] || 'terms_and_definitions.md'; // Default glossary file path
@@ -45,9 +56,9 @@ function testing(sourceTermsFile, termFilesDir, callback) {
     return;
   }
 
-  if (fs.existsSync(termFilesDir)) {
+  if (fs.existsSync(specPathPrefix + termFilesDir)) {
     console.log('Output directory exists. Only stop if there are .md files in the directory.');
-    const files = fs.readdirSync(termFilesDir);
+    const files = fs.readdirSync(specPathPrefix + termFilesDir);
     const mdFilesCount = files.filter(file => file.endsWith('.md')).length;
     if (mdFilesCount > 0) {
       console.log('There are .md files in the directory. Stopping.');
@@ -56,10 +67,10 @@ function testing(sourceTermsFile, termFilesDir, callback) {
   }
   console.log(`All conditions met. Splitting.`);
 
-  callback();
+  callback(termFilesDir);
 }
 
-function split() {
+function split(termFilesDir) {
   // if “specs.unsplit.json” does not yet exist, copy “specs.json” to “specs.unsplit.json” so we have a backup
   if (!fs.existsSync('specs.unsplit.json')) {
     fs.copyFileSync('specs.json', 'specs.unsplit.json');
@@ -69,7 +80,14 @@ function split() {
   fs.copyFileSync('specs.unsplit.json', 'specs.json');
 
   // Load the original specs.json file before changes
-  const specs = require(path.join(process.cwd(), 'specs.json'));
+  const specs = require(path.join(projectRoot, 'specs.json'));
+
+  // Create directory with this path: specPathPrefix + termFilesDir
+  if (!fs.existsSync(specPathPrefix + termFilesDir)) {
+    fs.mkdirSync(specPathPrefix + termFilesDir);
+  }
+
+
 
   // Array that holds markdown filenames in the desired order
   const arrMarkdownFileNamesAndFileOrder = specs.specs[0].markdown_paths;
@@ -94,10 +112,10 @@ function split() {
   arrMarkdownFileNamesAndFileOrder.splice(numMarkdownFileNamesAndOrderInsertPosition, 1);
 
 
-  const glossaryFileContent = fs.readFileSync(pathToTermsFileToBeSplit, 'utf8');
+  const glossaryFileContent = fs.readFileSync(specPathPrefix + pathToTermsFileToBeSplit, 'utf8');
 
   // Perform a few basic fixes on the source file
-  fixContent.fixGlossaryFile(pathToTermsFileToBeSplit);
+  fixContent.fixGlossaryFile(specPathPrefix + pathToTermsFileToBeSplit);
 
 
   // Remove directory with the splitted files if it exists
@@ -141,7 +159,7 @@ function split() {
       // Write separate files to disk
       fs.writeFileSync(
         // Where to write to:
-        path.join(pathToTermFilesDir, "/", filename),
+        path.join(specPathPrefix + pathToTermFilesDir, "/", filename),
         // What to write:
         config.definitionStringHead + section
       );
@@ -155,6 +173,7 @@ function split() {
   const specsString = JSON.stringify(specs);
   fs.writeFileSync("specs.json", specsString);
 
+  console.log("Splitting done.");
 }
 
 // If case of help command, show help text and exit…
