@@ -6,6 +6,8 @@ Example:
 
 This tool is designed to split a single markdown file containing terms and their definitions into multiple markdown files, each containing a single term and its definition.
 
+Warning: currently this tool works only on the first spec definition in specs.json (on the first element in de specs array in specs.json), which is usually the case for most Spec-Up projects. If you have multiple specs in your project, you may need to modify the tool to work with the correct spec definition.
+
 Arguments:
 - pathToTermsFile: Optional. The path to the markdown file containing terms and definitions to be split. If not provided, defaults to 'terms_and_definitions.md'.
 - pathToTermsDir: Optional. The path to the directory where the individual term files should be saved. If not provided, defaults to 'terms-definitions'.
@@ -17,5 +19,7 @@ Behavior:
 1. The tool first checks for the existence of 'specs.json'. If it is not found, the tool stops with an error message.
 2. It then checks if the source terms file exists. If not, it stops with an error message.
 3. If the specified directory for term files already exists and is empty, the tool proceeds with the splitting operation. If it contains markdown files, it stops.
+
+Github repo: https://github.com/blockchainbird/spec-up-splitter
 
 
