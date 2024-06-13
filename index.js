@@ -130,7 +130,7 @@ function split(termFilesDir) {
   // Find the terms by looking at the predictable string that indicates the start of a definition
   const termsRegex = /\[\[def: (.*?)\]\]/g;
 
-  // Create array with the terms and also meta information about the terms
+  // Create array with the terms (and also meta information about the terms, created by the regex)
   const matches = [...glossaryFileContent.matchAll(termsRegex)];
 
   // Extract terms. We don't need the meta info, we only need the term, the second element of the match array
