@@ -85,7 +85,13 @@ function split(termFilesDir) {
   const specs = require(path.join(projectRoot, 'specs.json'));
 
   // Create directory with this path: specPathPrefix + termFilesDir. It is going to hold the individual files
+  console.log('termFilesDir vbvbvbvb: ', termFilesDir);
+
+  specPathPrefix + termFilesDir
+  console.log('specPathPrefix + termFilesDir: ', specPathPrefix + termFilesDir);
+
   if (!fs.existsSync(specPathPrefix + termFilesDir)) {
+    console.log("bestaat niet dus");
     fs.mkdirSync(specPathPrefix + termFilesDir);
   }
 
@@ -177,7 +183,7 @@ function split(termFilesDir) {
   });
 
   // make string from specs for writing to file
-  const specsString = JSON.stringify(specs);
+  const specsString = JSON.stringify(specs, null, 2);
   fs.writeFileSync("specs.json", specsString);
 
   console.log("Splitting done.");
