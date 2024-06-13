@@ -122,11 +122,6 @@ function split(termFilesDir) {
     fs.rmdirSync(pathToTermFilesDir, { recursive: true });
   }
 
-  // Create directory that is going to hold splitted files if it doesn't exist
-  if (!fs.existsSync(pathToTermFilesDir)) {
-    fs.mkdirSync(pathToTermFilesDir, { recursive: true });
-  }
-
   // Find the terms by looking at the predictable string that indicates the start of a definition
   const termsRegex = /\[\[def: (.*?)\]\]/g;
 
@@ -144,10 +139,22 @@ function split(termFilesDir) {
     return `${termWithoutComma.replace(/,/g, '').replace(/\//g, '-').replace(/ /g, '-').toLowerCase()}`;
   });
 
-  // Add the filename for the glossary introduction to specs.json
-  insertGlossaryFileNameInSpecsJSON(arrMarkdownFileNamesAndFileOrder, path.join(pathToTermFilesDir, '/', 'glossaryIntro.md'));
+  // Split the content at the delimiter, but do not discard the first part
+  const [introSection, ...sections] = glossaryFileContent.split(config.definitionStringHead);
+  // Now, introSection contains everything before the first delimiter, and sections contains the rest
 
-  const sections = glossaryFileContent.split(config.definitionStringHead).slice(1); // slice(1) to remove the first part before the first heading
+  const introSectionFilename = 'glossaryIntro.md';
+
+  fs.writeFileSync(
+    // Where to write to:
+    path.join(specPathPrefix, "/", introSectionFilename),
+    // What to write:
+    introSection
+  );
+
+  // Add the filename for the glossary introduction to specs.json
+  insertGlossaryFileNameInSpecsJSON(arrMarkdownFileNamesAndFileOrder, introSectionFilename);
+
 
   sections.forEach((section, index) => {
     let filename = '';
