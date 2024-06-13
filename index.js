@@ -143,7 +143,7 @@ function split(termFilesDir) {
   const [introSection, ...sections] = glossaryFileContent.split(config.definitionStringHead);
   // Now, introSection contains everything before the first delimiter, and sections contains the rest
 
-  const introSectionFilename = 'glossaryIntro.md';
+  const introSectionFilename = 'glossary-intro-created-by-split-tool.md';
 
   fs.writeFileSync(
     // Where to write to:
