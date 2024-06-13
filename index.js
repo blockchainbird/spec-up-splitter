@@ -9,7 +9,8 @@
     - The original glossary file is not changed, but is removed as an entry from the specs.json.
     - If not exists the specs.json file is copied to specs.unsplit.json (one time back-up of `specs.json`).
     - The `spec.json file will have multiple new entries, one entry per defined term. The file can grow large.
-    - The script only works for the first entry in the “specs” array in specs.json. TODO: make it work for all specs.
+    - The script only works for the first entry in the “specs” array in specs.json.
+    - TODO: make it work for all specs.
  * @author Kor Dwarshuis
  * @version 1.0.0
  * @since 2024-06-10
