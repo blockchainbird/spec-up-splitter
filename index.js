@@ -183,6 +183,7 @@ function split(termFilesDir) {
   console.log("Splitting done.");
 }
 
+// Extra step to ask the user if they are sure they want to split the files
 function areYouSure() {
   // Create readline interface
   const rl = readline.createInterface({
