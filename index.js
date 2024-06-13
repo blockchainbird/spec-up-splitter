@@ -51,7 +51,7 @@ function testing(sourceTermsFile, termFilesDir, callback) {
     return;
   }
 
-  if (!fs.existsSync(sourceTermsFile)) {
+  if (!fs.existsSync(specPathPrefix + sourceTermsFile)) {
     console.log(`File not found: ${sourceTermsFile}. Stopping.`);
     return;
   }
