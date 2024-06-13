@@ -71,7 +71,7 @@ function testing(sourceTermsFile, termFilesDir, callback) {
 }
 
 function split(termFilesDir) {
-  // if “specs.unsplit.json” does not yet exist, copy “specs.json” to “specs.unsplit.json” so we have a backup
+  // if “specs.unsplit.json” does not yet exist, copy “specs.json” to “specs.unsplit.json” so we have a backup.
   if (!fs.existsSync('specs.unsplit.json')) {
     fs.copyFileSync('specs.json', 'specs.unsplit.json');
   }
@@ -82,12 +82,10 @@ function split(termFilesDir) {
   // Load the original specs.json file before changes
   const specs = require(path.join(projectRoot, 'specs.json'));
 
-  // Create directory with this path: specPathPrefix + termFilesDir
+  // Create directory with this path: specPathPrefix + termFilesDir. It is going to hold the individual files
   if (!fs.existsSync(specPathPrefix + termFilesDir)) {
     fs.mkdirSync(specPathPrefix + termFilesDir);
   }
-
-
 
   // Array that holds markdown filenames in the desired order
   const arrMarkdownFileNamesAndFileOrder = specs.specs[0].markdown_paths;
