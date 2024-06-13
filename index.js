@@ -144,7 +144,7 @@ function split(termFilesDir) {
     return `${termWithoutComma.replace(/,/g, '').replace(/\//g, '-').replace(/ /g, '-').toLowerCase()}`;
   });
 
-  // Add the filename for the glossary introduction
+  // Add the filename for the glossary introduction to specs.json
   insertGlossaryFileNameInSpecsJSON(arrMarkdownFileNamesAndFileOrder, path.join(pathToTermFilesDir, '/', 'glossaryIntro.md'));
 
   const sections = glossaryFileContent.split(config.definitionStringHead).slice(1); // slice(1) to remove the first part before the first heading
