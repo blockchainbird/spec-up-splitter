@@ -145,7 +145,7 @@ function split(termFilesDir) {
   });
 
   // Add the filename for the glossary introduction
-  insertGlossaryFileNameInSpecsJSON(arrMarkdownFileNamesAndFileOrder, "glossaryIntro.md");
+  insertGlossaryFileNameInSpecsJSON(arrMarkdownFileNamesAndFileOrder, path.join(pathToTermFilesDir, '/', 'glossaryIntro.md'));
 
   const sections = glossaryFileContent.split(config.definitionStringHead).slice(1); // slice(1) to remove the first part before the first heading
 
