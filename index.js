@@ -47,17 +47,17 @@ function testing(sourceTermsFile, termFilesDir, callback) {
 
   // Check if the specs.json file exists
   if (!fs.existsSync('specs.json')) {
-    console.log('specs.json does not exist. Stopping.');
+    console.log('specs.json not found. Stopping.');
     return;
   }
 
   if (!fs.existsSync(sourceTermsFile)) {
-    console.log(`File does not exist: ${sourceTermsFile}. Stopping.`);
+    console.log(`File not found: ${sourceTermsFile}. Stopping.`);
     return;
   }
 
   if (fs.existsSync(specPathPrefix + termFilesDir)) {
-    console.log('Output directory exists. Only stop if there are .md files in the directory.');
+    console.log('Output directory found. Only stop if there are .md files in the directory.');
     const files = fs.readdirSync(specPathPrefix + termFilesDir);
     const mdFilesCount = files.filter(file => file.endsWith('.md')).length;
     if (mdFilesCount > 0) {
