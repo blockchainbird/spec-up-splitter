@@ -19,6 +19,7 @@
 const fs = require('fs');
 const path = require('path');
 const fixContent = require('./fix-content.js');
+const readline = require('readline');
 
 // Get the current working directory
 const projectRoot = process.cwd();
@@ -182,6 +183,30 @@ function split(termFilesDir) {
   console.log("Splitting done.");
 }
 
+function areYouSure() {
+  // Create readline interface
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  // Prompt the user
+  rl.question('Are you sure you want to split files? (yes/no) ', (answer) => {
+    // Check the user's answer
+    if (answer.toLowerCase() === 'yes' || answer.toLowerCase() === 'y') {
+      console.log('Proceeding with the script...');
+      // Place your script logic here
+      testing(pathToTermsFileToBeSplit, pathToTermFilesDir, split);
+
+    } else {
+      console.log('Operation canceled.');
+    }
+
+    // Close the readline interface
+    rl.close();
+  });
+}
+
 // If case of help command, show help text and exit…
 if (args[0] === "help" || args[0] === "-h" || args[0] === "-help" || args[0] === "--help") {
   const helpFilePath = path.join(__dirname, 'help.txt');
@@ -195,5 +220,5 @@ if (args[0] === "help" || args[0] === "-h" || args[0] === "-help" || args[0] ===
 
   // …else run main function
 } else {
-  testing(pathToTermsFileToBeSplit, pathToTermFilesDir, split);
+  areYouSure();
 }
