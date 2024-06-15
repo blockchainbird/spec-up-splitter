@@ -32,10 +32,13 @@ const specDirectory = specs.specs[0].spec_directory;
 const specDirectoryWithoutBeginningSlash = specDirectory.replace(/^\.\/|\/$/g, '');
 const specPathPrefix = specDirectoryWithoutBeginningSlash + '/';
 
+const defaultTermsAndDefinitionsFileName = 'terms_and_definitions.md';
+const defaultTermsAndDefinitionsDirName = 'terms-definitions';
+
 // Retrieve command line arguments or set default values
 const args = process.argv.slice(2);
-const pathToTermsFileToBeSplit = args[0] || 'terms_and_definitions.md'; // Default glossary file path
-const pathToTermFilesDir = args[1] || 'terms-definitions'; // Default output file path
+const pathToTermsFileToBeSplit = args[0] || defaultTermsAndDefinitionsFileName; // Default glossary file path
+const pathToTermFilesDir = args[1] || defaultTermsAndDefinitionsDirName; // Default output file path
 
 /* CONFIG */
 const config = {
@@ -51,6 +54,13 @@ function testing(sourceTermsFile, termFilesDir, callback) {
   if (!fs.existsSync('specs.json')) {
     console.log('specs.json not found. Stopping.');
     return;
+  }
+
+  // Check if specs.specs[0].spec_terms_directory exists. If not, create it with the default value
+  if (!specs.specs[0].spec_terms_directory) {
+    console.log('specs.json does not contain specs.specs[0].spec_terms_directory.');
+    specs.specs[0].spec_terms_directory = defaultTermsAndDefinitionsDirName;
+    console.log(`specs.specs[0].spec_terms_directory is created with the default value: ${defaultTermsAndDefinitionsDirName}`);
   }
 
   if (!fs.existsSync(specPathPrefix + sourceTermsFile)) {
