@@ -61,6 +61,8 @@ function testing(sourceTermsFile, termFilesDir, callback) {
     console.log('specs.json does not contain specs.specs[0].spec_terms_directory.');
     specs.specs[0].spec_terms_directory = defaultTermsAndDefinitionsDirName;
     console.log(`specs.specs[0].spec_terms_directory is created with the default value: ${defaultTermsAndDefinitionsDirName}`);
+    // write specs.json
+    fs.writeFileSync('specs.json', JSON.stringify(specs, null, 2));
   }
 
   if (!fs.existsSync(specPathPrefix + sourceTermsFile)) {
