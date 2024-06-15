@@ -187,8 +187,7 @@ function split(termFilesDir) {
   });
 
   // make string from specs for writing to file
-  const specsString = JSON.stringify(specs);
-  fs.writeFileSync("specs.json", specsString);
+  fs.writeFileSync("specs.json", JSON.stringify(specs, null, 2));
 
   console.log("Splitting done.");
 }
