@@ -115,7 +115,7 @@ function split(sourceTermsFile, termFilesDir) {
     }
   });
 
-  const specsString = JSON.stringify(specs);
+  const specsString = JSON.stringify(specs, null, 2);
   fs.writeFileSync("specs.json", specsString);
 
   console.log("✅ Splitting done.");
