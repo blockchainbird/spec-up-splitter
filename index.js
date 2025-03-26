@@ -30,28 +30,28 @@ const config = {
 /* END CONFIG */
 
 function testing(sourceTermsFile, termFilesDir, callback) {
-  console.log(`Only split if all conditions are met:`);
+  console.log(`ℹ️ Only split if all conditions are met:`);
 
   if (!fs.existsSync('specs.json')) {
-    console.log('specs.json not found. Stopping.');
+    console.log('❌ specs.json not found. Stopping.');
     return;
   }
 
   if (!fs.existsSync(sourceTermsFile)) {
-    console.log(`File not found: ${sourceTermsFile}. Stopping.`);
+    console.log(`❌ File not found: ${sourceTermsFile}. Stopping.`);
     return;
   }
 
   if (fs.existsSync(termFilesDir)) {
-    console.log('Output directory found. Only stop if there are .md files in the directory.');
+    console.log('ℹ️ Output directory found. Only stop if there are .md files in the directory.');
     const files = fs.readdirSync(termFilesDir);
     const mdFilesCount = files.filter(file => file.endsWith('.md')).length;
     if (mdFilesCount > 0) {
-      console.log('There are .md files in the directory. Stopping.');
+      console.log('❌ There are .md files in the directory. Stopping.');
       return;
     }
   }
-  console.log(`All conditions met. Splitting.`);
+  console.log(`✅ All conditions met. Splitting.`);
 
   callback(sourceTermsFile, termFilesDir);
 }
@@ -69,9 +69,9 @@ function split(sourceTermsFile, termFilesDir) {
     try {
       const targetDir = path.join(process.cwd(), termFilesDir);
       fs.mkdirSync(targetDir, { recursive: true });
-      console.log('Directory created successfully at:', targetDir);
+      console.log('✅ Directory created successfully at:', targetDir);
     } catch (error) {
-      console.error('Failed to create directory:', error);
+      console.error('❌ Failed to create directory:', error);
     }
   }
 
@@ -111,14 +111,14 @@ function split(sourceTermsFile, termFilesDir) {
       const termFilePath = path.join(termFilesDir, filename);
       fs.writeFileSync(termFilePath, config.definitionStringHead + section);
       insertGlossaryFileNameInSpecsJSON(arrMarkdownFileNamesAndFileOrder, termFilePath);
-      console.log(`${filename} created`);
+      console.log(`✅ ${filename} created`);
     }
   });
 
   const specsString = JSON.stringify(specs);
   fs.writeFileSync("specs.json", specsString);
 
-  console.log("Splitting done.");
+  console.log("✅ Splitting done.");
 }
 
 // Interactive prompting and confirmation
@@ -145,10 +145,10 @@ if (process.argv[2] === "help" || process.argv[2] === "-h" || process.argv[2] ==
 
       rl.question('Are you sure you want to split files? (yes/no) ', (answer) => {
         if (answer.toLowerCase() === 'yes' || answer.toLowerCase() === 'y') {
-          console.log('Proceeding with the script...');
+          console.log('✅ Proceeding with the script...');
           testing(pathToTermsFileToBeSplit, pathToTermFilesDir, split);
         } else {
-          console.log('Operation canceled.');
+          console.log('❌ Operation canceled.');
         }
         rl.close();
       });
