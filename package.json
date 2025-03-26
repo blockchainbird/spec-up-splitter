@@ -1,6 +1,6 @@
 {
     "name": "spec-up-splitter",
-    "version": "1.0.18",
+    "version": "1.0.19",
     "description": "Tool for splitting a file with many terms and definitions into separate files with each one term and definition.",
     "main": "index.js",
     "scripts": {
